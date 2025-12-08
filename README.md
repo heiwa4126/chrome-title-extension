@@ -2,7 +2,7 @@
 
 Chrome の拡張機能の練習。
 
-[すべてのページでスクリプトを実行する | Get started | Chrome for Developers](https://developer.chrome.com/docs/extensions/get-started/tutorial/scripts-on-every-tab?hl=ja) を TypeScript で書いたもの
+カレントタブの`<title>`エレメントの innerText を取得して、表示する。
 
 ## ビルド手順
 
@@ -10,23 +10,16 @@ Chrome の拡張機能の練習。
 # 依存インストール
 pnpm install
 
-# ビルド
-pnpm build
+# ビルドして, release/ 以下にコピーして、配布用zipを作る
+pnpm run release
 ```
 
-`dist/` 配下に `content.global.js` と `popup.global.js` が生成されます。
+1. `dist/` 配下に `content.global.js` と `popup.global.js`、
+2. [release-zip.sh](release-zip.sh) で release 以下に配置され、
+3. `release/chrome-title-extension`にデバッグ用のパッケージ、
+4. `./chrome-title-extension-<version>.zip` として配布用 zip
 
-## リリース用 ZIP の作成
-
-バージョン付きのリリース ZIP をプロジェクトルートに作成できます。
-
-```sh
-pnpm run release:zip
-# 例: chrome-title-extension-1.0.0.zip が生成されます
-```
-
-ZIP 内には chrome-title-extension ディレクトリ配下に全ファイルがまとまっています。
-ZIP のポストフィックスのバージョン番号は `manifest.json` から取得します。
+が生成されます。
 
 ## Chrome 拡張機能 デベロッパーモードでの利用方法
 
@@ -35,11 +28,11 @@ ZIP のポストフィックスのバージョン番号は `manifest.json` か�
 1. Chrome で `chrome://extensions/` を開く
 2. 右上の「デベロッパーモード」を ON にする
 3. 「パッケージ化されていない拡張機能を読み込む」をクリック
-4. このリポジトリのルートディレクトリ(`manifest.json`がある場所)を選択
+4. このパッケージの `./release/chrome-title-extension` を選択 (`manifest.json` のあるところ)
 
 ### 更新
 
-1. コードを修正し、再度 `pnpm build` を実行
+1. コードを修正し、再度 `pnpm run release` を実行
 2. `chrome://extensions/` で該当拡張機能の「更新」ボタンを押す
 
 ### 削除
