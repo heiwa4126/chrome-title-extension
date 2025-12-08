@@ -7,22 +7,26 @@ export function showNotification(message: string) {
 	});
 }
 
-// documentが使える環境で直接クリップボードにコピー
-export async function copyToClipboard0(message: string): Promise<void> {
+/**
+ * 現在のdocument環境でクリップボードにテキストをコピーする。
+ * popupやcontent scriptなど、documentが使える場所で利用。
+ * @param message コピーするテキスト
+ */
+export async function copyTextInDocument(message: string): Promise<void> {
 	try {
 		await navigator.clipboard.writeText(message);
-	} catch {
-		// fallback: execCommand
-		const textarea = document.createElement("textarea");
-		textarea.value = message;
-		document.body.appendChild(textarea);
-		textarea.select();
-		document.execCommand("copy");
-		document.body.removeChild(textarea);
+	} catch (err) {
+		console.error("クリップボードへのコピーに失敗しました", err);
 	}
 }
 
-export function copyToClipboard1(message: string) {
+/**
+ * アクティブなタブのcontent scriptにメッセージを送り、
+ * そのページ上でクリップボードにテキストをコピーさせる。
+ * backgroundやpopupなど、documentが使えない場所で利用。
+ * @param message コピーするテキスト
+ */
+export function copyTextViaContentScript(message: string) {
 	chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 		if (!tabs[0] || !tabs[0].id) return;
 		chrome.tabs.sendMessage(tabs[0].id, { type: "copyToClipboard", message });

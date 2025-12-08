@@ -1,7 +1,7 @@
 {
 	"name": "chrome-title-extension",
-	"version": "1.0.0",
-	"description": "",
+	"version": "0.0.1",
+	"description": "A chrome extension to get the title of the current page and copy it to the clipboard",
 	"main": "index.js",
 	"scripts": {
 		"build": "tsup",
@@ -11,7 +11,18 @@
 		"release:zip": "sh release-zip.sh",
 		"release": "run-s build release:zip"
 	},
-	"keywords": [],
+	"keywords": [
+		"chrome-extension",
+		"extension",
+		"browser-extension",
+		"content-script",
+		"popup",
+		"background",
+		"clipboard",
+		"title",
+		"manifest",
+		"typescript"
+	],
 	"author": "",
 	"license": "ISC",
 	"packageManager": "pnpm@10.24.0",

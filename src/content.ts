@@ -1,4 +1,4 @@
-function setupGetPageTitle() {
+function setupChromeExtensionHandler() {
 	chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 		if (message === "getPageTitle") {
 			sendResponse({ title: document.title });
@@ -9,22 +9,17 @@ function setupGetPageTitle() {
 			typeof message.message === "string"
 		) {
 			// クリップボードにコピー
-			if (navigator.clipboard) {
+			try {
 				navigator.clipboard.writeText(message.message);
-			} else {
-				const textarea = document.createElement("textarea");
-				textarea.value = message.message;
-				document.body.appendChild(textarea);
-				textarea.select();
-				document.execCommand("copy");
-				document.body.removeChild(textarea);
+			} catch (err) {
+				console.error("クリップボードへのコピーに失敗しました", err);
 			}
 		}
 	});
 }
 
 if (document.readyState === "loading") {
-	document.addEventListener("DOMContentLoaded", setupGetPageTitle);
+	document.addEventListener("DOMContentLoaded", setupChromeExtensionHandler);
 } else {
-	setupGetPageTitle();
+	setupChromeExtensionHandler();
 }
