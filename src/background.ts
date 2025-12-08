@@ -7,6 +7,15 @@ chrome.runtime.onInstalled.addListener(() => {
 	});
 });
 
+export function showNotification(message: string) {
+	chrome.notifications.create({
+		type: "basic",
+		iconUrl: chrome.runtime.getURL("public/icon-128.png"),
+		title: "ページタイトル",
+		message,
+	});
+}
+
 chrome.contextMenus.onClicked.addListener((info, tab) => {
 	if (info.menuItemId === "get-title" && tab && tab.id) {
 		chrome.tabs.sendMessage(tab.id, "getPageTitle", (response) => {
@@ -16,12 +25,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 			} else {
 				message = "(タイトルを取得できませんでした)";
 			}
-			chrome.notifications.create({
-				type: "basic",
-				iconUrl: chrome.runtime.getURL("public/icon-128.png"),
-				title: "ページタイトル",
-				message,
-			});
+			showNotification(message);
 		});
 	}
 });
