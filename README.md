@@ -39,6 +39,14 @@ pnpm run release
 
 1. `chrome://extensions/` で該当拡張機能の「削除」ボタンを押す
 
+## 拡張機能の動作の流れ
+
+1. 新しいページが読み込まれると、`content.ts` がそのページのコンテキストで実行され、`getPageTitle` のハンドラ(Chrome 拡張の特殊なハンドラ)がセットされます。
+2. 拡張機能のアイコン(ボタン)がクリックされると、`popup.html` が表示され、そこから `popup.ts` が実行されます。
+3. `popup.ts` は、`content.ts` にメッセージ(例えば「タイトルを教えて」など)を送り、`getPageTitle` ハンドラがそのリクエストに応じてページタイトルを返します。その結果を `popup.html` に表示します。
+
+※ 通常の DOM 操作とは異なり、content script と popup は直接同じ DOM や JavaScript オブジェクトを共有できません。メッセージ通信(chrome.runtime.sendMessage など)を使って情報をやり取りします。
+
 ## 構成
 
 - `src/` ... TypeScript ソース
