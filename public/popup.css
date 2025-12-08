@@ -1,0 +1,12 @@
+body {
+  min-width: 200px;
+  min-height: 80px;
+  font-family: sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#reading-time {
+  font-size: 1.2em;
+  font-weight: bold;
+}
