@@ -1,4 +1,4 @@
-import { showNotification } from "./background";
+import { copyToClipboard0, showNotification } from "./utils.js";
 
 function updatePageTitle() {
 	chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -15,6 +15,7 @@ function updatePageTitle() {
 				el.textContent = message;
 			}
 			showNotification(message);
+			copyToClipboard0(message);
 		});
 	});
 }

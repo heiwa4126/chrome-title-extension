@@ -1,4 +1,6 @@
 // 右クリックメニューからページタイトルを取得する
+import { copyToClipboard1, showNotification } from "./utils.js";
+
 chrome.runtime.onInstalled.addListener(() => {
 	chrome.contextMenus.create({
 		id: "get-title",
@@ -6,15 +8,6 @@ chrome.runtime.onInstalled.addListener(() => {
 		contexts: ["all"],
 	});
 });
-
-export function showNotification(message: string) {
-	chrome.notifications.create({
-		type: "basic",
-		iconUrl: chrome.runtime.getURL("public/icon-128.png"),
-		title: "ページタイトル",
-		message,
-	});
-}
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
 	if (info.menuItemId === "get-title" && tab && tab.id) {
@@ -26,6 +19,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 				message = "(タイトルを取得できませんでした)";
 			}
 			showNotification(message);
+			copyToClipboard1(message);
 		});
 	}
 });
