@@ -24,3 +24,20 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 		});
 	}
 });
+
+// ツールバーアイコンクリック時の処理
+chrome.action.onClicked.addListener((tab) => {
+	if (tab.id) {
+		chrome.tabs.sendMessage(tab.id, "getPageTitle", (response) => {
+			let message: string;
+			if (response && typeof response.title === "string") {
+				message = response.title;
+			} else {
+				message = "(タイトルを取得できませんでした)";
+			}
+			// showNotification(message);
+			showAlertViaContentScript(message, tab.id);
+			copyTextViaContentScript(message);
+		});
+	}
+});
