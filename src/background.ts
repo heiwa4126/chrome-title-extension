@@ -1,5 +1,5 @@
 // 右クリックメニューからページタイトルを取得する
-import { copyTextViaContentScript, showNotification } from "./utils.js";
+import { copyTextViaContentScript, showAlertViaContentScript } from "./utils.js";
 
 chrome.runtime.onInstalled.addListener(() => {
 	chrome.contextMenus.create({
@@ -18,7 +18,8 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 			} else {
 				message = "(タイトルを取得できませんでした)";
 			}
-			showNotification(message);
+			// showNotification(message);
+			showAlertViaContentScript(message, tab.id);
 			copyTextViaContentScript(message);
 		});
 	}

@@ -7,6 +7,20 @@ export function showNotification(message: string) {
 	});
 }
 
+// content script経由でalertを表示する
+export function showAlertViaContentScript(text: string, tabId?: number) {
+	if (tabId) {
+		chrome.tabs.sendMessage(tabId, { type: "showAlert", text });
+	} else {
+		// popupやcontent scriptから自身のタブで呼ぶ場合
+		chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+			if (tabs[0]?.id) {
+				chrome.tabs.sendMessage(tabs[0].id, { type: "showAlert", text });
+			}
+		});
+	}
+}
+
 /**
  * 現在のdocument環境でクリップボードにテキストをコピーする。
  * popupやcontent scriptなど、documentが使える場所で利用。

@@ -1,4 +1,4 @@
-import { copyTextInDocument, showNotification } from "./utils.js";
+import { copyTextInDocument, showAlertViaContentScript } from "./utils.js";
 
 function updatePageTitle() {
 	chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -14,7 +14,8 @@ function updatePageTitle() {
 			if (el) {
 				el.textContent = message;
 			}
-			showNotification(message);
+			// showNotification(message);
+			showAlertViaContentScript(message);
 			copyTextInDocument(message);
 		});
 	});
