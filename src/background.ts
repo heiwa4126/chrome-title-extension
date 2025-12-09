@@ -13,16 +13,18 @@ function handleGetPageTitle(tabId?: number) {
 	});
 }
 
+const CONTEXT_MENU_ID = "copy-page-title";
+
 chrome.runtime.onInstalled.addListener(() => {
 	chrome.contextMenus.create({
-		id: "copy-page-title",
+		id: CONTEXT_MENU_ID,
 		title: "Copy Page Title",
 		contexts: ["all"],
 	});
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
-	if (info.menuItemId === "copy-page-title" && tab && tab.id) {
+	if (info.menuItemId === CONTEXT_MENU_ID && tab && tab.id) {
 		handleGetPageTitle(tab.id);
 	}
 });
