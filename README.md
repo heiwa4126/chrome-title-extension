@@ -5,8 +5,7 @@ Chrome の拡張機能の練習。
 カレントタブの`<title>`エレメントの innerText を取得して、
 
 - クリップボードにコピーする
-- Notification で通知する
-- popup(ツールバーのボタン)からは popup も出す
+- カスタムダイアログを表示する
 
 ## ビルド手順
 
@@ -59,6 +58,8 @@ pnpm run release
 ※ 通常の DOM 操作とは異なり、content script と popup は直接同じ DOM や JavaScript オブジェクトを共有できません。メッセージ通信(chrome.runtime.sendMessage など)を使って情報をやり取りします。
 
 ## background, popup, content script のちがい
+
+(popup は使うのをやめました)
 
 - background(service worker)は、Web ページの DOM や document にアクセスできません。  
   → クリップボード操作や DOM 操作は不可。  

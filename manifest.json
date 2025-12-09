@@ -1,4 +1,5 @@
 {
+	"$schema": "https://json.schemastore.org/chrome-manifest.json",
 	"manifest_version": 3,
 	"name": "Copy Page Title",
 	"version": "0.0.3",
@@ -10,8 +11,9 @@
 		"128": "public/icon-128.png"
 	},
 	"author": "heiwa4126 <heiwa4126@gmail.com>",
+	"license": "MIT",
 	"homepage_url": "https://github.com/heiwa4126/chrome-title-extension",
-	"permissions": ["scripting", "activeTab", "contextMenus", "notifications"],
+	"permissions": ["scripting", "activeTab", "contextMenus"],
 	"web_accessible_resources": [
 		{
 			"resources": ["public/icon-128.png"],
@@ -19,7 +21,12 @@
 		}
 	],
 	"action": {
-		"default_icon": "public/icon-128.png"
+		"default_icon": {
+			"16": "public/icon-16.png",
+			"32": "public/icon-32.png",
+			"48": "public/icon-48.png",
+			"128": "public/icon-128.png"
+		}
 	},
 	"content_scripts": [
 		{
