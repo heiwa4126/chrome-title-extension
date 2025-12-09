@@ -12,6 +12,12 @@
 	"author": "heiwa4126 <heiwa4126@gmail.com>",
 	"homepage_url": "https://github.com/heiwa4126/chrome-title-extension",
 	"permissions": ["scripting", "activeTab", "contextMenus", "notifications"],
+	"web_accessible_resources": [
+		{
+			"resources": ["public/icon-128.png"],
+			"matches": ["<all_urls>"]
+		}
+	],
 	"action": {
 		"default_popup": "public/popup.html",
 		"default_icon": "public/icon-128.png"
