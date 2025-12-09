@@ -1,5 +1,17 @@
-// 右クリックメニューからページタイトルを取得する
+// 右クリックメニュー・アイコンクリック共通処理
 import { copyTextViaContentScript, showAlertViaContentScript } from "./utils.js";
+
+function handleGetPageTitle(tabId?: number) {
+	if (!tabId) return;
+	chrome.tabs.sendMessage(tabId, "getPageTitle", (response) => {
+		const message =
+			response && typeof response.title === "string"
+				? response.title
+				: "(タイトルを取得できませんでした)";
+		showAlertViaContentScript(message, tabId);
+		copyTextViaContentScript(message);
+	});
+}
 
 chrome.runtime.onInstalled.addListener(() => {
 	chrome.contextMenus.create({
@@ -11,33 +23,12 @@ chrome.runtime.onInstalled.addListener(() => {
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
 	if (info.menuItemId === "copy-page-title" && tab && tab.id) {
-		chrome.tabs.sendMessage(tab.id, "getPageTitle", (response) => {
-			let message: string;
-			if (response && typeof response.title === "string") {
-				message = response.title;
-			} else {
-				message = "(タイトルを取得できませんでした)";
-			}
-			// showNotification(message);
-			showAlertViaContentScript(message, tab.id);
-			copyTextViaContentScript(message);
-		});
+		handleGetPageTitle(tab.id);
 	}
 });
 
-// ツールバーアイコンクリック時の処理
 chrome.action.onClicked.addListener((tab) => {
 	if (tab.id) {
-		chrome.tabs.sendMessage(tab.id, "getPageTitle", (response) => {
-			let message: string;
-			if (response && typeof response.title === "string") {
-				message = response.title;
-			} else {
-				message = "(タイトルを取得できませんでした)";
-			}
-			// showNotification(message);
-			showAlertViaContentScript(message, tab.id);
-			copyTextViaContentScript(message);
-		});
+		handleGetPageTitle(tab.id);
 	}
 });

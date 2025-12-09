@@ -1,7 +1,7 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-	entry: ["src/content.ts", "src/popup.ts", "src/background.ts"],
+	entry: ["src/content.ts", "src/background.ts"],
 	outDir: "dist",
 	format: ["iife"],
 	target: "chrome110",
