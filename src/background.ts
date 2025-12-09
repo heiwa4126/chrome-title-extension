@@ -14,7 +14,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 		chrome.tabs.sendMessage(tab.id, "getPageTitle", (response) => {
 			let message: string;
 			if (response && typeof response.title === "string") {
-				message = `ページタイトル: ${response.title}`;
+				message = response.title;
 			} else {
 				message = "(タイトルを取得できませんでした)";
 			}
