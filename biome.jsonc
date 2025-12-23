@@ -1,13 +1,6 @@
 {
-	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"root": true,
-	"assist": {
-		"actions": {
-			"source": {
-				"organizeImports": "off"
-			}
-		}
-	},
+	"assist": { "actions": { "source": { "organizeImports": "off" } } },
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -16,7 +9,7 @@
 	},
 	"files": {
 		"ignoreUnknown": true,
-		"includes": ["**", "!**/*.html", "!**/*.htm"]
+		"includes": ["**/*", "!**/*.html", "!**/*.htm"]
 	},
 	"json": {
 		"parser": {
