@@ -16,7 +16,7 @@
 	"web_accessible_resources": [
 		{
 			"resources": ["public/icon-128.png"],
-			"matches": ["<all_urls>"]
+			"matches": ["http://localhost/*"]
 		}
 	],
 	"action": {
@@ -29,7 +29,7 @@
 	},
 	"content_scripts": [
 		{
-			"matches": ["<all_urls>"],
+			"matches": ["http://localhost/test1/*"],
 			"js": ["dist/content.iife.js"]
 		}
 	],
