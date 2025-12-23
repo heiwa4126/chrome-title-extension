@@ -1,6 +1,52 @@
 // 右クリックメニュー・アイコンクリック共通処理
 import { copyTextViaContentScript, showAlertViaContentScript } from "./utils.js";
 
+const CONTEXT_MENU_ID = "copy-page-title";
+
+// 拡張機能アイコンの見栄え切り替え（有効:通常, 無効:グレー）
+const ICON_NORMAL = {
+	16: chrome.runtime.getURL("public/icon-16.png"),
+	32: chrome.runtime.getURL("public/icon-32.png"),
+	48: chrome.runtime.getURL("public/icon-48.png"),
+	128: chrome.runtime.getURL("public/icon-128.png"),
+};
+const ICON_GRAY = {
+	16: chrome.runtime.getURL("public/icon-128x.png"),
+	32: chrome.runtime.getURL("public/icon-128x.png"),
+	48: chrome.runtime.getURL("public/icon-128x.png"),
+	128: chrome.runtime.getURL("public/icon-128x.png"),
+};
+
+function updateActionIcon(tabId: number, url?: string) {
+	if (!url) {
+		console.log(`[updateActionIcon] urlなし tabId=${tabId}`, tabId);
+		return;
+	}
+	console.log(`[updateActionIcon] url=${url} tabId=${tabId}`);
+	if (url.startsWith("http://localhost:3000/test1")) {
+		chrome.action.setIcon({ tabId, path: ICON_NORMAL });
+	} else {
+		chrome.action.setIcon({ tabId, path: ICON_GRAY });
+	}
+}
+
+// タブ切り替え時にもアイコンを更新
+chrome.tabs.onActivated.addListener(async (activeInfo) => {
+	try {
+		const tab = await chrome.tabs.get(activeInfo.tabId);
+		updateActionIcon(activeInfo.tabId, tab.url);
+	} catch (error) {
+		console.error(`[onActivated] エラー: ${error}`);
+	}
+});
+
+// タブ更新時にもアイコンを更新
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+	if (changeInfo.status === "complete" || changeInfo.url) {
+		updateActionIcon(tabId, tab.url);
+	}
+});
+
 function handleGetPageTitle(tabId?: number) {
 	if (!tabId) return;
 	chrome.tabs.sendMessage(tabId, "getPageTitle", (response) => {
@@ -12,8 +58,6 @@ function handleGetPageTitle(tabId?: number) {
 		copyTextViaContentScript(message);
 	});
 }
-
-const CONTEXT_MENU_ID = "copy-page-title";
 
 chrome.runtime.onInstalled.addListener(() => {
 	chrome.contextMenus.create({
