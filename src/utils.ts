@@ -1,4 +1,4 @@
-// content script経由でalertを表示する
+// content script経由でalert(自前ダイアログ)を表示する
 export function showAlertViaContentScript(text: string, tabId?: number) {
 	if (tabId) {
 		chrome.tabs.sendMessage(tabId, { type: "showAlert", text });

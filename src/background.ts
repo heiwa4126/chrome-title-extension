@@ -3,18 +3,19 @@ import { copyTextViaContentScript, showAlertViaContentScript } from "./utils.js"
 
 const CONTEXT_MENU_ID = "copy-page-title";
 
-// 拡張機能アイコンの見栄え切り替え（有効:通常, 無効:グレー）
+// 拡張機能アイコンの見栄え切り替え(有効:通常, 無効:グレー)
+const crxUrl = (path: string) => chrome.runtime.getURL(`public/${path}`); // ラッパー
 const ICON_NORMAL = {
-	16: chrome.runtime.getURL("public/icon-16.png"),
-	32: chrome.runtime.getURL("public/icon-32.png"),
-	48: chrome.runtime.getURL("public/icon-48.png"),
-	128: chrome.runtime.getURL("public/icon-128.png"),
+	16: crxUrl("icon-16.png"),
+	32: crxUrl("icon-32.png"),
+	48: crxUrl("icon-48.png"),
+	128: crxUrl("icon-128.png"),
 };
 const ICON_GRAY = {
-	16: chrome.runtime.getURL("public/icon-128x.png"),
-	32: chrome.runtime.getURL("public/icon-128x.png"),
-	48: chrome.runtime.getURL("public/icon-128x.png"),
-	128: chrome.runtime.getURL("public/icon-128x.png"),
+	16: crxUrl("icon-128x.png"),
+	32: crxUrl("icon-128x.png"),
+	48: crxUrl("icon-128x.png"),
+	128: crxUrl("icon-128x.png"),
 };
 
 // URLが有効かどうかを判定
@@ -22,6 +23,7 @@ function isValidUrl(url?: string): boolean {
 	return url?.startsWith("http://localhost:3000/test1") ?? false;
 }
 
+// 拡張機能アイコンの見栄え切り替え・右クリックメニュー表示切り替え
 function updateActionIcon(tabId: number, url?: string) {
 	if (!url) {
 		console.log(`[updateActionIcon] urlなし tabId=${tabId}`, tabId);
