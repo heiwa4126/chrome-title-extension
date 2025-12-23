@@ -1,6 +1,6 @@
 {
 	"name": "chrome-title-extension",
-	"version": "0.0.1",
+	"version": "0.0.4",
 	"description": "A chrome extension to get the title of the current page and copy it to the clipboard",
 	"main": "index.js",
 	"type": "module",

@@ -2,7 +2,7 @@
 	"$schema": "https://json.schemastore.org/chrome-manifest.json",
 	"manifest_version": 3,
 	"name": "Copy Page Title",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "Get the title of the current page and copy it to the clipboard.",
 	"icons": {
 		"16": "public/icon-16.png",
