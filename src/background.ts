@@ -26,18 +26,15 @@ function isValidUrl(url?: string): boolean {
 // 拡張機能アイコンの見栄え切り替え・右クリックメニュー表示切り替え
 function updateActionIcon(tabId: number, url?: string) {
 	if (!url) {
-		console.log(`[updateActionIcon] urlなし tabId=${tabId}`, tabId);
+		console.log(`[updateActionIcon] no url. tabId=${tabId}`);
 		return;
 	}
 	console.log(`[updateActionIcon] url=${url} tabId=${tabId}`);
+
 	const isEnabled = isValidUrl(url);
 
 	// アイコンの切り替え
-	if (isEnabled) {
-		chrome.action.setIcon({ tabId, path: ICON_NORMAL });
-	} else {
-		chrome.action.setIcon({ tabId, path: ICON_GRAY });
-	}
+	chrome.action.setIcon({ tabId, path: isEnabled ? ICON_NORMAL : ICON_GRAY });
 
 	// コンテキストメニューの表示/非表示切り替え
 	chrome.contextMenus.update(CONTEXT_MENU_ID, {
@@ -51,7 +48,7 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
 		const tab = await chrome.tabs.get(activeInfo.tabId);
 		updateActionIcon(activeInfo.tabId, tab.url);
 	} catch (error) {
-		console.error(`[onActivated] エラー: ${error}`);
+		console.error(`[onActivated] Error: ${error}`);
 	}
 });
 
@@ -93,11 +90,11 @@ async function handleGetPageTitle(tabId?: number) {
 	try {
 		const tab = await chrome.tabs.get(tabId);
 		if (!isValidUrl(tab.url)) {
-			console.log(`[handleGetPageTitle] 無効なURL: ${tab.url}`);
+			console.log(`[handleGetPageTitle] Invalid URL: ${tab.url}`);
 			return;
 		}
 	} catch (error) {
-		console.error(`[handleGetPageTitle] タブ取得エラー: ${error}`);
+		console.error(`[handleGetPageTitle] Tab retrieval error: ${error}`);
 		return;
 	}
 

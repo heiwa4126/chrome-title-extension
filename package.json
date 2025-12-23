@@ -12,6 +12,7 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"release:zip": "sh release-zip.sh",
 		"release": "run-s build release:zip",
+		"lizard": "lizard -EDuplicate -w .",
 		"start": "serve demo -l 3000"
 	},
 	"keywords": [
