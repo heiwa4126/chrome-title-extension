@@ -11,7 +11,6 @@
 		"128": "public/icon-128.png"
 	},
 	"author": "heiwa4126 <heiwa4126@gmail.com>",
-	"license": "MIT",
 	"homepage_url": "https://github.com/heiwa4126/chrome-title-extension",
 	"permissions": ["scripting", "activeTab", "contextMenus"],
 	"web_accessible_resources": [
