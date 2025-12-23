@@ -11,7 +11,8 @@
 		"lint": "biome lint .",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"release:zip": "sh release-zip.sh",
-		"release": "run-s build release:zip"
+		"release": "run-s build release:zip",
+		"start": "serve demo -l 3000"
 	},
 	"keywords": [
 		"chrome-extension",
@@ -34,6 +35,7 @@
 		"esbuild": "^0.27.2",
 		"fx": "^39.2.0",
 		"npm-run-all": "^4.1.5",
+		"serve": "^14.2.5",
 		"tsdown": "^0.18.2",
 		"typescript": "^5.9.3"
 	}
