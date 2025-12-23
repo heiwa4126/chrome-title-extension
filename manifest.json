@@ -30,10 +30,10 @@
 	"content_scripts": [
 		{
 			"matches": ["<all_urls>"],
-			"js": ["dist/content.global.js"]
+			"js": ["dist/content.iife.js"]
 		}
 	],
 	"background": {
-		"service_worker": "dist/background.global.js"
+		"service_worker": "dist/background.iife.js"
 	}
 }
