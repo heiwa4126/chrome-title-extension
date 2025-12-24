@@ -3,27 +3,33 @@ import { copyTextViaContentScript, showAlertViaContentScript } from "./utils.js"
 
 const CONTEXT_MENU_ID = "copy-page-title";
 
-// 拡張機能アイコンの見栄え切り替え(有効:通常, 無効:グレー)
+//--------------------------------------------------
+// 「拡張機能アイコンの見栄え切替」と「右クリックメニュー表示切替」
+
 const crxUrl = (path: string) => chrome.runtime.getURL(`public/${path}`); // ラッパー
+
+// 拡張機能アイコン(有効:通常)
 const ICON_NORMAL = {
 	16: crxUrl("icon-16.png"),
 	32: crxUrl("icon-32.png"),
 	48: crxUrl("icon-48.png"),
 	128: crxUrl("icon-128.png"),
 };
-const ICON_GRAY = {
-	16: crxUrl("icon-128x.png"),
-	32: crxUrl("icon-128x.png"),
-	48: crxUrl("icon-128x.png"),
+// 拡張機能アイコン(無効:グレー)
+const ICON_DISABLE = {
+	16: crxUrl("icon-16x.png"),
+	32: crxUrl("icon-32x.png"),
+	48: crxUrl("icon-48x.png"),
 	128: crxUrl("icon-128x.png"),
 };
 
 // URLが有効かどうかを判定
 function isValidUrl(url?: string): boolean {
 	return url?.startsWith("http://localhost:3000/test1") ?? false;
+	// 注意!: "http://localhost:3000/test1/" ではダメ
 }
 
-// 拡張機能アイコンの見栄え切り替え・右クリックメニュー表示切り替え
+// 拡張機能アイコンの見栄え切替・右クリックメニュー表示切替
 function updateActionIcon(tabId: number, url?: string) {
 	if (!url) {
 		console.log(`[updateActionIcon] no url. tabId=${tabId}`);
@@ -33,10 +39,10 @@ function updateActionIcon(tabId: number, url?: string) {
 
 	const isEnabled = isValidUrl(url);
 
-	// アイコンの切り替え
-	chrome.action.setIcon({ tabId, path: isEnabled ? ICON_NORMAL : ICON_GRAY });
+	// アイコンの切替
+	chrome.action.setIcon({ tabId, path: isEnabled ? ICON_NORMAL : ICON_DISABLE });
 
-	// コンテキストメニューの表示/非表示切り替え
+	// コンテキストメニューの表示/非表示切替
 	chrome.contextMenus.update(CONTEXT_MENU_ID, {
 		visible: isEnabled,
 	});
@@ -58,6 +64,8 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 		updateActionIcon(tabId, tab.url);
 	}
 });
+
+//--------------------------------------------------
 
 // 右クリックメニュー作成
 chrome.runtime.onInstalled.addListener(() => {
@@ -82,6 +90,7 @@ chrome.action.onClicked.addListener((tab) => {
 	}
 });
 
+//--------------------------------------------------
 // ページタイトル取得・表示・コピー処理
 async function handleGetPageTitle(tabId?: number) {
 	if (!tabId) return;

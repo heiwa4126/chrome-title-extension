@@ -1,3 +1,5 @@
+// const crxUrl = (path: string) => chrome.runtime.getURL(`public/${path}`); // ラッパー
+
 function setupChromeExtensionHandler() {
 	chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 		if (message === "getPageTitle") {
@@ -61,6 +63,7 @@ function setupChromeExtensionHandler() {
 		// アイコン
 		const icon = document.createElement("img");
 		icon.src = chrome.runtime.getURL("public/icon-128.png");
+		// background.tsのcrxUrl関数は使えないので注意! 間違ったURLが帰る
 		icon.alt = "拡張アイコン";
 		icon.style.width = "48px";
 		icon.style.height = "48px";
