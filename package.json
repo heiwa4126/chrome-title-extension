@@ -10,10 +10,14 @@
 		"format:all": "pnpm pkg fix && biome format --write . && dprint fmt && textlint --fix \"**/*.md\"",
 		"lint": "biome lint .",
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"release:zip": "sh release-zip.sh",
-		"release": "run-s build release:zip",
-		"lizard": "lizard -EDuplicate -w .",
-		"start": "serve demo -l 3000"
+		"release:zip": "sh scripts/release-zip.sh",
+		"release": "run-s lint build release:zip",
+		"start": "serve demo -l 3000",
+		"trivy": "trivy config . && trivy fs --exit-code 1 --severity HIGH,CRITICAL .",
+		"sbom": "trivy fs --scanners vuln --format spdx-json --output sbom.spdx.json .",
+		"osv-scan": "osv-scanner .",
+		"cloc": "cloc $(git ls-files|grep -Fv pnpm-lock.yaml)",
+		"lizard": "lizard -EDuplicate -w ."
 	},
 	"keywords": [
 		"chrome-extension",
@@ -35,9 +39,9 @@
 		"@types/chrome": "^0.1.32",
 		"esbuild": "^0.27.2",
 		"fx": "^39.2.0",
-		"npm-run-all": "^4.1.5",
+		"npm-run-all2": "^8.0.4",
 		"serve": "^14.2.5",
-		"tsdown": "^0.18.2",
+		"tsdown": "^0.18.3",
 		"typescript": "^5.9.3"
 	}
 }
