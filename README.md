@@ -89,3 +89,9 @@ pnpm run release
   拡張機能全体の設定・権限・構成を記述します。
 - ホストパーミッション・外部通信
   外部サイトとの通信や権限管理も拡張の一部です。
+
+## TODO
+
+- [x] package.json と manifest.json の version を一致させる  
+       ⇒ `scripts/release-zip.sh` に実装した。
+      プロジェクトルートの manifest を `release/` にコピーした後 .version を書き換える。
