@@ -24,9 +24,10 @@ const ICON_DISABLE = {
 };
 
 // URLが有効かどうかを判定
-function isValidUrl(url?: string): boolean {
-	return url?.startsWith("http://localhost:3000/test1") ?? false;
-	// 注意!: "http://localhost:3000/test1/" ではダメ
+function isValidUrl(_url?: string): boolean {
+	return true;
+	// return url?.startsWith("http://localhost:3000/test1") ?? false;
+	//// 注意!: "http://localhost:3000/test1/" ではダメ
 }
 
 // 拡張機能アイコンの見栄え切替・右クリックメニュー表示切替

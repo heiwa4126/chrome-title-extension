@@ -1,4 +1,5 @@
 {
+	"_comment": "これは開発用のマニフェストファイルです。本番用のは manifest.json です",
 	"$schema": "https://json.schemastore.org/chrome-manifest.json",
 	"manifest_version": 3,
 	"name": "Copy Page Title",
@@ -16,7 +17,7 @@
 	"web_accessible_resources": [
 		{
 			"resources": ["public/icon-128.png"],
-			"matches": ["<all_urls>"]
+			"matches": ["http://localhost/*"]
 		}
 	],
 	"action": {

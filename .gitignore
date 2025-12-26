@@ -13,3 +13,4 @@ release/
 tmp.*
 *.tmp
 tmp/
+zip/
