@@ -12,7 +12,7 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"release:zip": "sh scripts/release-zip.sh",
 		"release": "run-s lint build release:zip",
-		"start": "serve demo -l 3000",
+		"start": "http-server demo -p 3000",
 		"trivy": "trivy config . && trivy fs --exit-code 1 --severity HIGH,CRITICAL .",
 		"sbom": "trivy fs --scanners vuln --format spdx-json --output sbom.spdx.json .",
 		"osv-scan": "osv-scanner .",
@@ -39,8 +39,8 @@
 		"@types/chrome": "^0.1.37",
 		"esbuild": "^0.27.3",
 		"fx": "^39.2.0",
+		"http-server": "^14.1.1",
 		"npm-run-all2": "^8.0.4",
-		"serve": "^14.2.5",
 		"tsdown": "^0.20.3",
 		"typescript": "^5.9.3"
 	}
