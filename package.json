@@ -35,13 +35,13 @@
 	"license": "MIT",
 	"packageManager": "pnpm@10.24.0",
 	"devDependencies": {
-		"@biomejs/biome": "^2.4.4",
-		"@types/chrome": "^0.1.37",
-		"esbuild": "^0.27.3",
+		"@biomejs/biome": "^2.4.10",
+		"@types/chrome": "^0.1.38",
+		"esbuild": "^0.27.5",
 		"fx": "^39.2.0",
 		"http-server": "^14.1.1",
 		"npm-run-all2": "^8.0.4",
-		"tsdown": "^0.20.3",
-		"typescript": "^5.9.3"
+		"tsdown": "^0.21.7",
+		"typescript": "^6.0.2"
 	}
 }
