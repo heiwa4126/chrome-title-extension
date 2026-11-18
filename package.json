@@ -2,13 +2,28 @@
 	"name": "chrome-title-extension",
 	"version": "0.0.5",
 	"description": "A chrome extension to get the title of the current page and copy it to the clipboard",
-	"main": "index.js",
+	"keywords": [
+		"background",
+		"browser-extension",
+		"chrome-extension",
+		"clipboard",
+		"content-script",
+		"extension",
+		"manifest",
+		"popup",
+		"title",
+		"typescript"
+	],
+	"license": "MIT",
+	"author": "heiwa4126 <heiwa4126@gmail.com>",
 	"type": "module",
+	"main": "index.js",
 	"scripts": {
 		"build": "tsdown",
-		"format": "biome format .",
-		"format:all": "pnpm pkg fix && biome format --write . && dprint fmt && textlint --fix \"**/*.md\"",
-		"lint": "biome lint .",
+		"format": "oxfmt",
+		"lint": "oxlint",
+		"check": "oxfmt && oxlint --fix",
+		"lint:me": "me lint .",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"release:zip": "sh scripts/release-zip.sh",
 		"release": "run-s lint build release:zip",
@@ -19,23 +34,7 @@
 		"cloc": "cloc $(git ls-files|grep -Fv pnpm-lock.yaml)",
 		"lizard": "lizard -EDuplicate -w ."
 	},
-	"keywords": [
-		"chrome-extension",
-		"extension",
-		"browser-extension",
-		"content-script",
-		"popup",
-		"background",
-		"clipboard",
-		"title",
-		"manifest",
-		"typescript"
-	],
-	"author": "heiwa4126 <heiwa4126@gmail.com>",
-	"license": "MIT",
-	"packageManager": "pnpm@10.24.0",
 	"devDependencies": {
-		"@biomejs/biome": "^2.6.8",
 		"@types/chrome": "^0.3.7",
 		"esbuild": "^0.28.2",
 		"fx": "^40.0.1",
@@ -43,5 +42,6 @@
 		"npm-run-all2": "^9.0.4",
 		"tsdown": "^0.23.7",
 		"typescript": "^7.0.2"
-	}
+	},
+	"packageManager": "pnpm@10.24.0"
 }

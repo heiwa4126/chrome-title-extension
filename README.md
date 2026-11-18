@@ -93,5 +93,5 @@ pnpm run release
 ## TODO
 
 - [x] package.json と manifest.json の version を一致させる  
-       ⇒ `scripts/release-zip.sh` に実装した。
+      ⇒ `scripts/release-zip.sh` に実装した。
       プロジェクトルートの manifest を `release/` にコピーした後 .version を書き換える。

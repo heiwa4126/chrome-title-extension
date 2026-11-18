@@ -9,7 +9,7 @@ export default defineConfig([
 		target: "chrome110",
 		sourcemap: false,
 		dts: false,
-		minify: true,
+		minify: true
 	},
 	{
 		clean: false,
@@ -19,6 +19,6 @@ export default defineConfig([
 		target: "chrome110",
 		sourcemap: false,
 		dts: false,
-		minify: true,
-	},
+		minify: true
+	}
 ]);

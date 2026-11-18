@@ -13,14 +13,14 @@ const ICON_NORMAL = {
 	16: crxUrl("icon-16.png"),
 	32: crxUrl("icon-32.png"),
 	48: crxUrl("icon-48.png"),
-	128: crxUrl("icon-128.png"),
+	128: crxUrl("icon-128.png")
 };
 // 拡張機能アイコン(無効:グレー)
 const ICON_DISABLE = {
 	16: crxUrl("icon-16x.png"),
 	32: crxUrl("icon-32x.png"),
 	48: crxUrl("icon-48x.png"),
-	128: crxUrl("icon-128x.png"),
+	128: crxUrl("icon-128x.png")
 };
 
 // URLが有効かどうかを判定
@@ -45,7 +45,7 @@ function updateActionIcon(tabId: number, url?: string) {
 
 	// コンテキストメニューの表示/非表示切替
 	chrome.contextMenus.update(CONTEXT_MENU_ID, {
-		visible: isEnabled,
+		visible: isEnabled
 	});
 }
 
@@ -73,7 +73,7 @@ chrome.runtime.onInstalled.addListener(() => {
 	chrome.contextMenus.create({
 		id: CONTEXT_MENU_ID,
 		title: "Copy Page Title",
-		contexts: ["all"],
+		contexts: ["all"]
 	});
 });
 
